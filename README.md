@@ -1,2 +1,2 @@
-# tpl.CatLib.io
-CatLib Public Template Library
+# console.CatLib.io
+CatLib Debugger Console
