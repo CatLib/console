@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <title>CatLib{{ header.title }}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <link href="header.host + '/Debugger/style/index.css'" rel='stylesheet' type='text/css'>
+        <script :src="header.host + '/public/vue.js'"></script>
+        <script src="https://cdn.bootcss.com/vue/2.3.4/vue.min.js"></script>
+    </head>
+
+    <body>
+        hello world
+    </body>
+</html>
+
+<script>
+var vm = new Vue({
+  data: {
+    header: { host : 'http://127.0.0.1' }
+  }
+});
+</script>
