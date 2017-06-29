@@ -1,5 +1,7 @@
 # catlib.console
 
+> The library project is being developed, please do not use
+
 > catlib console
 
 ## Build Setup
