@@ -2,6 +2,10 @@
   <div id="app">
     <nav-view></nav-view>
     <router-view></router-view>
+    <footer>
+      <p>© Copyright 2017 catlib.io All Rights Reserved</p>
+      <p>喵喵喵，快来一起玩喵~</p>
+    </footer>
   </div>
 </template>
 
@@ -15,3 +19,15 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="stylus">
+@import "assets/stylus/_settings"
+#app
+  min-width 1200px
+footer
+  padding 50px
+  text-align center
+  p
+    padding 5px
+    
+</style>

@@ -1,7 +1,8 @@
 import router from '../../router'
 
 var state = {
-  host: []
+  host: null,
+  port: null
 }
 
 var getters = {
@@ -13,7 +14,9 @@ var getters = {
 
 var mutations = { 
     changeHost(state , payload){
-        state.host = payload
+        var result = payload.split(':')
+        state.host = result[0];
+        state.port = result.length > 1 ? result[1] : "7878"
         router.push({ path:'/' })
     }
 }
