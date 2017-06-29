@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import './assets/stylus/base.styl'
 export default {
   name: 'app'
 }
