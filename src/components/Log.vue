@@ -6,10 +6,10 @@
 
 <script>
 export default {
-  name: 'console',
+  name: 'Log',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Hello Log'
     }
   }
 }

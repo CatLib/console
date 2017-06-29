@@ -8,4 +8,34 @@ body,footer,header, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, o
 	color: $font-color
 
 body
-    background-color: $bg-color
+    background-color $bg-color-v1
+    color $font-color
+    font-size 12px
+
+ul, ol 
+    list-style none
+
+a
+	text-decoration none
+    transition all 0.5s
+    -moz-transition all 0.5s
+    -webkit-transition all 0.5s
+    -o-transition all 0.5s
+    cursor pointer
+	color: $font-color
+	text-decoration none
+
+a:hover
+    text-decoration underline 
+    outline 0 
+    color: $main-color
+
+.clear:after
+    content "."  
+    display block  
+    height 0 
+    clear both 
+    visibility hidden
+
+.clear
+     zoom 1
