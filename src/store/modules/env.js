@@ -1,5 +1,4 @@
 import router from '../../router'
-import { mapGetters } from 'vuex'
 
 var state = {
   host: []
@@ -15,14 +14,13 @@ var getters = {
 var mutations = { 
     changeHost(state , payload){
         state.host = payload
-        //router.go({name: '/' });
+        router.push({ path:'/' })
     }
 }
 
 export default {
     namespaced: true,
-    state: state,
-    getters: getters,
-    mutations: mutations,
-    computed: mapGetters({authorizd : "authorizd"})
+    state,
+    getters,
+    mutations,
 }
