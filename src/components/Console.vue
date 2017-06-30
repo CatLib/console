@@ -28,19 +28,21 @@
       <div class="display-screen">
         <!--p class="tip">暂时没有日志.</p!-->
         <ul>
-          <li v-for="(output, value) in outputs" :key="output.length">
+          <li v-for="(output, value) in outputs" :key="output.length" @click="output.show_stack = !output.show_stack">
             <div class="icon">
               <img src="../assets/imgs/info.svg">
             </div>
             <div class="message">
               <p class="title">{{output.title}}</p>
-              <blockquote v-show="output.show_stack">
-                <div v-if="output.call_stack.length > 0">
-                  <p v-for="(stack, value) in output.call_stack" :key="stack.length">
-                    {{stack.code}}
-                  </p>
-                </div>
-              </blockquote>
+              <transition name="slide-fade">
+                <blockquote v-show="output.show_stack">
+                  <div v-if="output.call_stack.length > 0">
+                    <p v-for="(stack, value) in output.call_stack" :key="stack.length">
+                      {{stack.code}}
+                    </p>
+                  </div>
+                </blockquote>
+              </transition>
             </div>
           </li>
         </ul>
@@ -79,7 +81,7 @@ export default {
       ],
       outputs:[
         { id: 1 , title : 'Hello world 1' ,show_stack : false , 'call_stack' : [ { code : "UnityEngine.Debug::Log(Object)"} ,  { code : "NewBehaviorScripts:Start() (at Assets/NewBehavior.cs:8)" } ] },
-        { id: 1 , title : 'Hello world 2' ,show_stack : true, 'call_stack' : [ { code : "UnityEngine.Debug::Warn(Object)"} , { code : "NewBehaviorScripts:Start() (at Assets/NewBehavior.cs:8)"} ] },
+        { id: 1 , title : 'Hello world 2' ,show_stack : false, 'call_stack' : [ { code : "UnityEngine.Debug::Warn(Object)"} , { code : "NewBehaviorScripts:Start() (at Assets/NewBehavior.cs:8)"} ] },
         { id: 1 , title : 'Hello world 3' ,show_stack : false, 'call_stack' : [ { code : "UnityEngine.Debug::Error(Object)"} , { code : "NewBehaviorScripts:Start() (at Assets/NewBehavior.cs:8)"} ] }
       ]
     }
@@ -159,6 +161,13 @@ export default {
             img
               width 32px
               height 32px
+          .slide-fade-enter-active
+            transition all .3s ease
+          .slide-fade-leave-active
+            transition all .3s ease
+          .slide-fade-enter, .slide-fade-leave-active
+            transform translateX(10px)
+            opacity: 0;
           .message
             margin-left 40px
             min-height 32px
