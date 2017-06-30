@@ -11,13 +11,13 @@
       <div class="display-filter">
         <ul class="filter-group clear">
           <li v-for="(group, value) in groups" :key="group.count">
-            {{ group.name }}({{ group.count }})
+            {{ group.name }}<span v-if="group.count > 0">({{ group.count }})</span>
           </li>
         </ul>
 
         <ul class="filter-level clear">
           <li v-for="(level, value) in levels" :key="level.count">
-            {{ level.name }}({{ level.count }})
+            {{ level.name }}<span v-if="level.count > 0">({{ level.count }})</span>
           </li>
           <li class="filter-input">
             <input type="text" >
@@ -26,7 +26,7 @@
       </div>
 
       <div class="display-screen">
-
+        <p class="tip">暂时没有日志.</p>
       </div>
 
     </div>
@@ -48,17 +48,17 @@ export default {
                   { name : '下行流量' , value : '273' , unit : 'KB' },
               ],
       groups:[
-        { name : '全部' , count: '6' },
-        { name : '路由模块' , count: '2' },
-        { name : '计时器模块' , count: '1' },
-        { name : '背包模块' , count: '0' },
-        { name : '角色模块' , count: '3' }
+        { id: 1 , name : '全部' , count: '6' },
+        { id: 2 , name : '路由模块' , count: '2' },
+        { id: 3 , name : '计时器模块' , count: '1' },
+        { id: 4 , name : '背包模块' , count: '0' },
+        { id: 5 , name : '角色模块' , count: '3' }
       ],
       levels:[
-        { name : '全部' , count: '6' },
-        { name : '错误' , count: '0' },
-        { name : '警告' , count: '0' },
-        { name : '信息' , count: '6' },
+        { id: 1 , name : '全部' , count: '6' },
+        { id: 2 , name : '错误' , count: '0' },
+        { id: 3 , name : '警告' , count: '0' },
+        { id: 4 , name : '信息' , count: '6' },
       ]
     }
   }
@@ -110,7 +110,7 @@ export default {
           input
             width 200px
             padding 5px 10px 5px 30px
-            height 15px
+            height 20px
             font-size 12px
             background-color $bg-color-v1
             border 0
@@ -122,5 +122,9 @@ export default {
     .display-screen
       background-color $bg-color-v3
       min-height 400px
+      .tip
+        height 80px
+        line-height 80px
+        text-align center
     
 </style>

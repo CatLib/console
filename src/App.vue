@@ -23,7 +23,7 @@ export default {
 <style scoped lang="stylus">
 @import "assets/stylus/_settings"
 #app
-  min-width 1200px
+  min-width 900px
 footer
   padding 50px
   text-align center
