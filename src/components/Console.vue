@@ -26,7 +26,21 @@
       </div>
 
       <div class="display-screen">
-        <p class="tip">暂时没有日志.</p>
+        <!--p class="tip">暂时没有日志.</p!-->
+        <ul>
+          <li>
+            <div class="icon">
+              <img src="../assets/imgs/info.svg">
+            </div>
+            <div class="message">
+              <p class="title">Hello world</p>
+              <!--blockquote>
+                <p>UnityEngine.Debug::Log(Object)</p>
+                <p>NewBehaviourScript:Start()(at Assets/NewBehaviourScript.cs 8)</p>
+              </blockquote!-->
+            </div>
+          </li>
+        </ul>
       </div>
 
     </div>
@@ -126,5 +140,24 @@ export default {
         height 80px
         line-height 80px
         text-align center
+      ul
+        li
+          padding 10px
+          .icon
+            float left
+            text-align center
+            img
+              width 32px
+              height 32px
+          .message
+            margin-left 40px
+            min-height 32px
+            line-height 32px
+            p.title
+              font-size 13px
+            blockquote
+              p
+                padding 10px
+              
     
 </style>
