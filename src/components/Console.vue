@@ -28,16 +28,19 @@
       <div class="display-screen">
         <!--p class="tip">暂时没有日志.</p!-->
         <ul>
-          <li>
+          <li v-for="(output, value) in outputs" :key="output.length">
             <div class="icon">
               <img src="../assets/imgs/info.svg">
             </div>
             <div class="message">
-              <p class="title">Hello world</p>
-              <!--blockquote>
-                <p>UnityEngine.Debug::Log(Object)</p>
-                <p>NewBehaviourScript:Start()(at Assets/NewBehaviourScript.cs 8)</p>
-              </blockquote!-->
+              <p class="title">{{output.title}}</p>
+              <blockquote v-show="output.show_stack">
+                <div v-if="output.call_stack.length > 0">
+                  <p v-for="(stack, value) in output.call_stack" :key="stack.length">
+                    {{stack.code}}
+                  </p>
+                </div>
+              </blockquote>
             </div>
           </li>
         </ul>
@@ -73,6 +76,11 @@ export default {
         { id: 2 , name : '错误' , count: '0' },
         { id: 3 , name : '警告' , count: '0' },
         { id: 4 , name : '信息' , count: '6' },
+      ],
+      outputs:[
+        { id: 1 , title : 'Hello world 1' ,show_stack : false , 'call_stack' : [ { code : "UnityEngine.Debug::Log(Object)"} ,  { code : "NewBehaviorScripts:Start() (at Assets/NewBehavior.cs:8)" } ] },
+        { id: 1 , title : 'Hello world 2' ,show_stack : true, 'call_stack' : [ { code : "UnityEngine.Debug::Warn(Object)"} , { code : "NewBehaviorScripts:Start() (at Assets/NewBehavior.cs:8)"} ] },
+        { id: 1 , title : 'Hello world 3' ,show_stack : false, 'call_stack' : [ { code : "UnityEngine.Debug::Error(Object)"} , { code : "NewBehaviorScripts:Start() (at Assets/NewBehavior.cs:8)"} ] }
       ]
     }
   }
@@ -128,19 +136,21 @@ export default {
             font-size 12px
             background-color $bg-color-v1
             border 0
-            color $font-color
+            color $bg-color-v6
             background-image url('../assets/imgs/search.svg')
             background-repeat no-repeat
             background-size 7%
             background-position 5px
     .display-screen
-      background-color $bg-color-v3
+      background-color $bg-color-v4
       min-height 400px
       .tip
         height 80px
         line-height 80px
         text-align center
       ul
+        li:nth-child(even)
+          background-color $bg-color-v3
         li
           padding 10px
           .icon
@@ -156,8 +166,11 @@ export default {
             p.title
               font-size 13px
             blockquote
+              padding 5px 0px 5px 0px
               p
-                padding 10px
+                padding 0px
+                line-height 16px
+                color $bg-color-v5
               
     
 </style>

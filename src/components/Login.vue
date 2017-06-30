@@ -40,7 +40,7 @@ export default {
     span
       margin 0px 7px 0px 7px
       padding 3px
-      background-color $dotted-color
+      background-color $bg-color-v7
       display inline-block
       border-radius 3px
   img
@@ -61,6 +61,6 @@ export default {
       text-align center
       font-weight bold
       color $bg-color-v3
-      background-color $bg-color-v5
+      background-color $bg-color-v6
 
 </style>
