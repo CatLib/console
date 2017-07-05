@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Console from '@/components/Console'
-import Log from '@/components/Log'
-import Monitor from '@/components/Monitor'
-import Login from '@/components/Login'
+import Console from '@/components/page/Console'
+import Log from '@/components/page/Log'
+import Monitor from '@/components/page/Monitor'
+import Login from '@/components/page/Login'
 
 Vue.use(Router)
 

@@ -1,92 +1,63 @@
 <template>
-  <div class="console">
-    <div class="monitor clear">
-      <div v-for="(monitor, index) in monitors['monitor_data']" :key="monitor.value" class="monitor-block">
-        <h1>{{ monitors['monitor_element'][index].name }}</h1>
-        <h2>{{ monitor.value }}<span>{{ monitors['monitor_element'][index].unit }}</span></h2>
-      </div>
-    </div>
-
     <div class="console-display">
-      <div class="display-filter">
-        <ul class="filter-group clear">
-          <li v-for="(group, index) in console.groups" :key="group.count" @click="current.select_group = index" :class="{ 'selected': current.select_group == index }">
-            {{ group.name }}<span v-if="group.count > 0">({{ group.count }})</span>
-          </li>
-        </ul>
+        <div class="display-filter">
+            <ul class="filter-group clear">
+                <li v-for="(group, index) in console.groups" :key="group.count" @click="current.selectGroup = index" :class="{ 'selected': current.selectGroup == index }">
+                {{ group.name }}<span v-if="group.count > 0">({{ group.count }})</span>
+                </li>
+            </ul>
 
-        <ul class="filter-level clear">
-          <li v-for="(level, index) in console.groups[current.select_group].levels" :key="level.outputs.length" @click="current.select_level = index" :class="{ 'selected': current.select_level == index }">
-            {{ level.name }}<span v-if="level.outputs.length > 0">({{ level.outputs.length }})</span>
-          </li>
-          <!--li class="filter-input">
-            <input type="text" >
-          </li!-->
-        </ul>
-      </div>
+            <ul class="filter-level clear">
+                <li v-for="(level, index) in console.groups[current.selectGroup].levels" :key="level.outputs.length" @click="current.selectLevel = index" :class="{ 'selected': current.selectLevel == index }">
+                {{ level.name }}<span v-if="level.outputs.length > 0">({{ level.outputs.length }})</span>
+                </li>
+                <!--li class="filter-input">
+                <input type="text" >
+                </li!-->
+            </ul>
+        </div>
 
-      <div class="display-screen">
-        <p v-if="console.groups[current.select_group].levels[current.select_level].outputs.length <= 0" class="tip">暂时没有日志.</p>
-        <ul v-else>
-          <li v-for="(output, index) in console.groups[current.select_group].levels[current.select_level].outputs" :key="output.title" @click="output.show_stack = !output.show_stack">
-            <div class="icon">
-              <img src="../assets/imgs/info.svg">
-            </div>
-            <div class="message">
-              <p class="title">{{output.title}}</p>
-              <transition name="slide-fade">
-                <blockquote v-show="output.show_stack">
-                  <div v-if="output.call_stack.length > 0">
-                    <p v-for="(stack, value) in output.call_stack" :key="stack.length">
-                      {{stack.code}}
-                    </p>
-                  </div>
-                </blockquote>
-              </transition>
-            </div>
-          </li>
-        </ul>
-      </div>
-
+        <div class="display-screen">
+            <p v-if="console.groups[current.selectGroup].levels[current.selectLevel].outputs.length <= 0" class="tip">暂时没有日志.</p>
+            <ul v-else>
+                <li v-for="(output, index) in console.groups[current.selectGroup].levels[current.selectLevel].outputs" :key="output.title" @click="output.showStack = !output.showStack">
+                    <div class="icon">
+                        <img src="../../assets/imgs/info.svg">
+                    </div>
+                    <div class="message">
+                        <p class="title">{{output.title}}</p>
+                        <transition name="slide-fade">
+                        <blockquote v-show="output.showStack">
+                            <div v-if="output.callStack.length > 0">
+                            <p v-for="(stack, value) in output.callStack" :key="stack.length">
+                                {{stack.code}}
+                            </p>
+                            </div>
+                        </blockquote>
+                        </transition>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
-
-  </div>
 </template>
 
 <script>
 export default {
-  name: 'console',
+  name: 'console_module',
   data () {
     return {
       current:{
-        select_group : 0,
-        select_level : 0,
-        last_id : 0
-      },
-      monitors: {
-        monitor_element: { 
-          0 : {  name : 'CPU平均值' , unit : 'MS' }, 
-          1 : {  name : '堆内存' , unit : 'MB' }, 
-          2 : {  name : '总内存' , unit : 'MB' }, 
-          3 : {  name : 'FPS' , unit : '/S' }, 
-          4 : {  name : '上行流量' , unit : 'KB' }, 
-          5 : {  name : '下行流量' , unit : 'KB' } 
-        },
-        monitor_data:{
-          0 : { value: '32' },
-          1 : { value: '5.2' },
-          2 : { value: '99.4' },
-          3 : { value: '32' },
-          4 : { value: '123' },
-          5 : { value: '273' },
-        }
+        selectGroup : 0,
+        selectLevel : 0,
+        lastId : 0
       },
       console: {
         groups : {
           0 : { name : '未分组' , count: 6 , levels: {
                     0 : { name : '紧急' , outputs : [
-                      { title : 'Hello world 1' , show_stack : false , 'call_stack' : [ { code : "UnityEngine.Debug::Log(Object)"} ,  { code : "NewBehaviorScripts:Start() (at Assets/NewBehavior.cs:8)" } ] },
-                      { title : 'Hello world 1' , show_stack : false , 'call_stack' : [ { code : "UnityEngine.Debug::Log(Object)"} ,  { code : "NewBehaviorScripts:Start() (at Assets/NewBehavior.cs:8)" } ] }
+                      { title : 'Hello world 1' , showStack : false , callStack : [ { code : "UnityEngine.Debug::Log(Object)"} ,  { code : "NewBehaviorScripts:Start() (at Assets/NewBehavior.cs:8)" } ] },
+                      { title : 'Hello world 1' , showStack : false , callStack : [ { code : "UnityEngine.Debug::Log(Object)"} ,  { code : "NewBehaviorScripts:Start() (at Assets/NewBehavior.cs:8)" } ] }
                     ]},
                     1 : { name : '警报' , outputs : []},
                     2 : { name : '关键' , outputs : []},
@@ -144,29 +115,9 @@ export default {
 }
 </script>
 
+
 <style scoped lang="stylus">
-@import "../assets/stylus/_settings"
-
-.console
-  padding 0 $global-margin + 10px $global-margin $global-margin
-  .monitor
-    .monitor-block
-      margin 0px 5px 10px 5px
-      padding 10px
-      width 165px
-      height 75px
-      background-color $bg-color-v3
-      float left
-      h1
-        font-size 13px 
-        padding-bottom 20px
-      h2
-        font-size 32px
-        text-align right
-        span
-          font-size 16px
-          margin-left 7px
-
+@import "../../assets/stylus/_settings"
   .console-display
     margin 0px 5px 10px 5px
     background-color $bg-color-v2
@@ -200,7 +151,7 @@ export default {
             background-color $bg-color-v1
             border 0
             color $bg-color-v6
-            background-image url('../assets/imgs/search.svg')
+            background-image url('../../assets/imgs/search.svg')
             background-repeat no-repeat
             background-size 7%
             background-position 5px
@@ -242,6 +193,4 @@ export default {
                 padding 0px
                 line-height 16px
                 color $bg-color-v5
-              
-    
 </style>

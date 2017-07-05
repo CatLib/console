@@ -11,7 +11,7 @@
 
 <script>
 import '@/assets/stylus/base.styl'
-import Nav from '@/components/Nav'
+import Nav from '@/components/modules/Nav'
 export default {
   name: 'app',
   components: {

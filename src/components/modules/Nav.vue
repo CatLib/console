@@ -1,6 +1,6 @@
 <template>
   <div class="nav">
-    <img src="../assets/imgs/logo.png"></img>
+    <img src="../../assets/imgs/logo.png"></img>
     <h1>CatLib 调试控制台</h1>
     <ul class="clear">
       <li v-for="(key, value) in navs" :key="key">
@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-@import "../assets/stylus/_settings"
+@import "../../assets/stylus/_settings"
 $width = 30px
 $height = 30px
 .nav

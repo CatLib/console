@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <img src="../assets/imgs/phone.svg"></img>
+    <img src="../../assets/imgs/phone.svg"></img>
     <div class="input">
       <input type="text" v-model="host" v-on:keyup.enter="commit">
     </div>
@@ -26,7 +26,7 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-@import "../assets/stylus/_settings"
+@import "../../assets/stylus/_settings"
 
 .login
   margin 0 $global-margin $global-margin $global-margin
