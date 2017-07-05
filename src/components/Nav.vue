@@ -50,4 +50,8 @@ $height = 30px
       padding 5px
       height $height - 5px * 2
       line-height $height - 5px * 2
+    li 
+      a:hover
+        text-decoration none
+        color $bg-color-v7
 </style>

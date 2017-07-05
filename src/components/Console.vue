@@ -1,34 +1,34 @@
 <template>
   <div class="console">
     <div class="monitor clear">
-      <div v-for="(monitor, value) in monitors" :key="monitor.value" class="monitor-block">
-        <h1>{{ monitor.name }}</h1>
-        <h2>{{ monitor.value }}<span>{{ monitor.unit }}</span></h2>
+      <div v-for="(monitor, index) in monitors['monitor_data']" :key="monitor.value" class="monitor-block">
+        <h1>{{ monitors['monitor_element'][index].name }}</h1>
+        <h2>{{ monitor.value }}<span>{{ monitors['monitor_element'][index].unit }}</span></h2>
       </div>
     </div>
 
     <div class="console-display">
       <div class="display-filter">
         <ul class="filter-group clear">
-          <li v-for="(group, value) in groups" :key="group.count">
+          <li v-for="(group, index) in console.groups" :key="group.count" @click="current.select_group = index" :class="{ 'selected': current.select_group == index }">
             {{ group.name }}<span v-if="group.count > 0">({{ group.count }})</span>
           </li>
         </ul>
 
         <ul class="filter-level clear">
-          <li v-for="(level, value) in levels" :key="level.count">
-            {{ level.name }}<span v-if="level.count > 0">({{ level.count }})</span>
+          <li v-for="(level, index) in console.groups[current.select_group].levels" :key="level.outputs.length" @click="current.select_level = index" :class="{ 'selected': current.select_level == index }">
+            {{ level.name }}<span v-if="level.outputs.length > 0">({{ level.outputs.length }})</span>
           </li>
-          <li class="filter-input">
+          <!--li class="filter-input">
             <input type="text" >
-          </li>
+          </li!-->
         </ul>
       </div>
 
       <div class="display-screen">
-        <!--p class="tip">暂时没有日志.</p!-->
-        <ul>
-          <li v-for="(output, value) in outputs" :key="output.length" @click="output.show_stack = !output.show_stack">
+        <p v-if="console.groups[current.select_group].levels[current.select_level].outputs.length <= 0" class="tip">暂时没有日志.</p>
+        <ul v-else>
+          <li v-for="(output, index) in console.groups[current.select_group].levels[current.select_level].outputs" :key="output.title" @click="output.show_stack = !output.show_stack">
             <div class="icon">
               <img src="../assets/imgs/info.svg">
             </div>
@@ -58,32 +58,87 @@ export default {
   name: 'console',
   data () {
     return {
-      monitors: [
-                  { name : 'CPU平均值' , value : '32' , unit : 'MS' },
-                  { name : '堆内存' , value : '5.2' , unit : 'MB' },
-                  { name : '总内存' , value : '99.4' , unit : 'MB' },
-                  { name : 'FPS' , value : '32' , unit : '/S' },
-                  { name : '上行流量' , value : '123' , unit : 'KB' },
-                  { name : '下行流量' , value : '273' , unit : 'KB' },
-              ],
-      groups:[
-        { id: 1 , name : '全部' , count: '6' },
-        { id: 2 , name : '路由模块' , count: '2' },
-        { id: 3 , name : '计时器模块' , count: '1' },
-        { id: 4 , name : '背包模块' , count: '0' },
-        { id: 5 , name : '角色模块' , count: '3' }
-      ],
-      levels:[
-        { id: 1 , name : '全部' , count: '6' },
-        { id: 2 , name : '错误' , count: '0' },
-        { id: 3 , name : '警告' , count: '0' },
-        { id: 4 , name : '信息' , count: '6' },
-      ],
-      outputs:[
-        { id: 1 , title : 'Hello world 1' ,show_stack : false , 'call_stack' : [ { code : "UnityEngine.Debug::Log(Object)"} ,  { code : "NewBehaviorScripts:Start() (at Assets/NewBehavior.cs:8)" } ] },
-        { id: 1 , title : 'Hello world 2' ,show_stack : false, 'call_stack' : [ { code : "UnityEngine.Debug::Warn(Object)"} , { code : "NewBehaviorScripts:Start() (at Assets/NewBehavior.cs:8)"} ] },
-        { id: 1 , title : 'Hello world 3' ,show_stack : false, 'call_stack' : [ { code : "UnityEngine.Debug::Error(Object)"} , { code : "NewBehaviorScripts:Start() (at Assets/NewBehavior.cs:8)"} ] }
-      ]
+      current:{
+        select_group : 0,
+        select_level : 0,
+        last_id : 0
+      },
+      monitors: {
+        monitor_element: { 
+          0 : {  name : 'CPU平均值' , unit : 'MS' }, 
+          1 : {  name : '堆内存' , unit : 'MB' }, 
+          2 : {  name : '总内存' , unit : 'MB' }, 
+          3 : {  name : 'FPS' , unit : '/S' }, 
+          4 : {  name : '上行流量' , unit : 'KB' }, 
+          5 : {  name : '下行流量' , unit : 'KB' } 
+        },
+        monitor_data:{
+          0 : { value: '32' },
+          1 : { value: '5.2' },
+          2 : { value: '99.4' },
+          3 : { value: '32' },
+          4 : { value: '123' },
+          5 : { value: '273' },
+        }
+      },
+      console: {
+        groups : {
+          0 : { name : '未分组' , count: 6 , levels: {
+                    0 : { name : '紧急' , outputs : [
+                      { title : 'Hello world 1' , show_stack : false , 'call_stack' : [ { code : "UnityEngine.Debug::Log(Object)"} ,  { code : "NewBehaviorScripts:Start() (at Assets/NewBehavior.cs:8)" } ] },
+                      { title : 'Hello world 1' , show_stack : false , 'call_stack' : [ { code : "UnityEngine.Debug::Log(Object)"} ,  { code : "NewBehaviorScripts:Start() (at Assets/NewBehavior.cs:8)" } ] }
+                    ]},
+                    1 : { name : '警报' , outputs : []},
+                    2 : { name : '关键' , outputs : []},
+                    3 : { name : '错误' , outputs : []},
+                    4 : { name : '警告' , outputs : []},
+                    5 : { name : '通知' , outputs : []},
+                    6 : { name : '信息' , outputs : []},
+                    7 : { name : '调试' , outputs : []},
+                  } 
+          },
+          1 : { name : '路由模块' , count: 2 , levels: {
+                    0 : { name : '紧急' , outputs : [] },
+                    1 : { name : '警报' , outputs : []},
+                    2 : { name : '关键' , outputs : []},
+                    3 : { name : '错误' , outputs : []},
+                    4 : { name : '警告' , outputs : []},
+                    5 : { name : '通知' , outputs : []},
+                    6 : { name : '信息' , outputs : []},
+                    7 : { name : '调试' , outputs : []},
+                  } },
+          2 : { name : '计时器模块' , count: 1 , levels: {
+                    0 : { name : '紧急' , outputs : [] },
+                    1 : { name : '警报' , outputs : []},
+                    2 : { name : '关键' , outputs : []},
+                    3 : { name : '错误' , outputs : []},
+                    4 : { name : '警告' , outputs : []},
+                    5 : { name : '通知' , outputs : []},
+                    6 : { name : '信息' , outputs : []},
+                    7 : { name : '调试' , outputs : []},
+                  }},
+          3 : { name : '背包模块' , count: 0 , levels: {
+                    0 : { name : '紧急' , outputs : [] },
+                    1 : { name : '警报' , outputs : []},
+                    2 : { name : '关键' , outputs : []},
+                    3 : { name : '错误' , outputs : []},
+                    4 : { name : '警告' , outputs : []},
+                    5 : { name : '通知' , outputs : []},
+                    6 : { name : '信息' , outputs : []},
+                    7 : { name : '调试' , outputs : []},
+                  }},
+          4 : { name : '角色模块' , count: 3 , levels: {
+                    0 : { name : '紧急' , outputs : [] },
+                    1 : { name : '警报' , outputs : []},
+                    2 : { name : '关键' , outputs : []},
+                    3 : { name : '错误' , outputs : []},
+                    4 : { name : '警告' , outputs : []},
+                    5 : { name : '通知' , outputs : []},
+                    6 : { name : '信息' , outputs : []},
+                    7 : { name : '调试' , outputs : []},
+                  }},
+        },
+      }
     }
   }
 }
@@ -123,7 +178,13 @@ export default {
       .filter-group,.filter-level
         li
           padding 0px 5px 5px 5px
-          float left   
+          float left
+          cursor pointer
+          user-select none
+        li.selected
+          color $bg-color-v7
+        li:hover
+          color $bg-color-v7
       .filter-level
         height 30px
         padding 10px 10px 0px 10px
@@ -155,6 +216,7 @@ export default {
           background-color $bg-color-v3
         li
           padding 10px
+          cursor pointer
           .icon
             float left
             text-align center
