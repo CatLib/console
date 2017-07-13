@@ -53,62 +53,7 @@ export default {
         lastId : 0
       },
       console: {
-        groups : {
-          0 : { name : '未分组' , count: 6 , levels: {
-                    0 : { name : '紧急' , outputs : [
-                      { title : 'Hello world 1' , showStack : false , callStack : [ { code : "UnityEngine.Debug::Log(Object)"} ,  { code : "NewBehaviorScripts:Start() (at Assets/NewBehavior.cs:8)" } ] },
-                      { title : 'Hello world 1' , showStack : false , callStack : [ { code : "UnityEngine.Debug::Log(Object)"} ,  { code : "NewBehaviorScripts:Start() (at Assets/NewBehavior.cs:8)" } ] }
-                    ]},
-                    1 : { name : '警报' , outputs : []},
-                    2 : { name : '关键' , outputs : []},
-                    3 : { name : '错误' , outputs : []},
-                    4 : { name : '警告' , outputs : []},
-                    5 : { name : '通知' , outputs : []},
-                    6 : { name : '信息' , outputs : []},
-                    7 : { name : '调试' , outputs : []},
-                  } 
-          },
-          1 : { name : '路由模块' , count: 2 , levels: {
-                    0 : { name : '紧急' , outputs : [] },
-                    1 : { name : '警报' , outputs : []},
-                    2 : { name : '关键' , outputs : []},
-                    3 : { name : '错误' , outputs : []},
-                    4 : { name : '警告' , outputs : []},
-                    5 : { name : '通知' , outputs : []},
-                    6 : { name : '信息' , outputs : []},
-                    7 : { name : '调试' , outputs : []},
-                  } },
-          2 : { name : '计时器模块' , count: 1 , levels: {
-                    0 : { name : '紧急' , outputs : [] },
-                    1 : { name : '警报' , outputs : []},
-                    2 : { name : '关键' , outputs : []},
-                    3 : { name : '错误' , outputs : []},
-                    4 : { name : '警告' , outputs : []},
-                    5 : { name : '通知' , outputs : []},
-                    6 : { name : '信息' , outputs : []},
-                    7 : { name : '调试' , outputs : []},
-                  }},
-          3 : { name : '背包模块' , count: 0 , levels: {
-                    0 : { name : '紧急' , outputs : [] },
-                    1 : { name : '警报' , outputs : []},
-                    2 : { name : '关键' , outputs : []},
-                    3 : { name : '错误' , outputs : []},
-                    4 : { name : '警告' , outputs : []},
-                    5 : { name : '通知' , outputs : []},
-                    6 : { name : '信息' , outputs : []},
-                    7 : { name : '调试' , outputs : []},
-                  }},
-          4 : { name : '角色模块' , count: 3 , levels: {
-                    0 : { name : '紧急' , outputs : [] },
-                    1 : { name : '警报' , outputs : []},
-                    2 : { name : '关键' , outputs : []},
-                    3 : { name : '错误' , outputs : []},
-                    4 : { name : '警告' , outputs : []},
-                    5 : { name : '通知' , outputs : []},
-                    6 : { name : '信息' , outputs : []},
-                    7 : { name : '调试' , outputs : []},
-                  }},
-        },
+        
       }
     }
   }

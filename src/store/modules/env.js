@@ -2,7 +2,8 @@ import router from '../../router'
 
 var state = {
   host: null,
-  port: null
+  port: null,
+  clientId: 0
 }
 
 var getters = {
@@ -16,8 +17,11 @@ var mutations = {
     changeHost(state , payload){
         var result = payload.split(':')
         state.host = result[0];
-        state.port = result.length > 1 ? result[1] : "7878"
+        state.port = result.length > 1 ? result[1] : "9478"
         router.push({ path:'/' })
+    },
+    reClientId(state){
+        state.clientId = Math.floor(Math.random() * 65535);
     }
 }
 

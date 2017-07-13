@@ -16,6 +16,12 @@ export default {
   name: 'app',
   components: {
     'nav-view': Nav,
+  },
+  mounted:function(){
+    this.$store.commit('env/reClientId')
+    setInterval(() => {
+      this.$store.dispatch('console/refresh')
+    }, 1000)
   }
 }
 </script>
