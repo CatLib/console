@@ -10,6 +10,9 @@ var getters = {
     authorizd(state){
       return state.host != "" &&
               state.host != null
+    },
+    url(state){
+        return "http://" + state.host + ":" + state.port;
     }
 }
 
