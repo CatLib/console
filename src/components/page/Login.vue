@@ -16,6 +16,9 @@ export default {
       host: ''
     }
   },
+  mounted: function(){
+    this.host = window.localStorage.getItem("baseUrl");
+  },
   methods: {
     commit : function()
     {

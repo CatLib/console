@@ -1,13 +1,12 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
+import Store from '../store'
 
 export default {
   getLog (clientId, onSuccess, onFaild) {
-    console.dir(Vuex)
-    Vue.http.get(Vuex.getters["env/url"]).then(function(response){
-      
+    Vue.http.get(Store.getters["env/url"] + "/debug/log/get-log/" + clientId).then(function(response){
+      onSuccess(response)
     },function(response){
-      //faild
-    });
+      onFaild(response)
+    })
   }
 }

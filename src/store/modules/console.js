@@ -11,12 +11,18 @@ var mutations = {
 }
 
 var actions = {
-    refresh(context){
-        if(context.rootGetters["env/authorizd"])
+    refresh({rootGetters , commit }){
+        if(rootGetters["env/authorizd"])
         {
-            debugLog.getLog(context.rootGetters["env/clientId"],(result)=>{
-                console.info("hello action!")
-            }, ()=>{})
+            debugLog.getLog(rootGetters["env/clientId"],(result)=>{
+                if(!rootGetters["env/isConnect"]){
+                    commit('env/changeConnectStatu',true, { root: true } )
+                }
+            }, ()=>{ 
+                if(rootGetters["env/isConnect"]){
+                    commit('env/changeConnectStatu',false, { root: true } ) 
+                }
+            })
         }
     }
 }
