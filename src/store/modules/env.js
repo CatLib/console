@@ -15,8 +15,14 @@ var getters = {
     url(state){
         return "http://" + state.host + ":" + state.port;
     },
+    hostPort(state){
+        return state.host + ":" + state.port;
+    },
     isConnect(state){
         return state.isConnect
+    },
+    clientId(state){
+        return state.clientId
     }
 }
 
