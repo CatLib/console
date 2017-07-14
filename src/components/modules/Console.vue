@@ -2,7 +2,10 @@
     <div class="console-display">
         <div class="display-filter">
             <ul class="filter-level clear">
-                <li v-for="(level, index) in levels" :key="level" @click="changeSelectLevel(index)" :class="{ 'selected': selectLevel == index }">
+                <li @click="changeSelectLevel(999)" :class="{ 'selected': selectLevel == 999 }">
+                {{ levels[999].name }}<span v-if="levels[999].count > 0">({{ levels[999].count }})</span>
+                </li>
+                <li v-for="(level, index) in levels" v-if="index != 999" :key="level" @click="changeSelectLevel(index)" :class="{ 'selected': selectLevel == index }">
                 {{ level.name }}<span v-if="level.count > 0">({{ level.count }})</span>
                 </li>
                 <li class="filter-input">
@@ -14,7 +17,7 @@
         <div class="display-screen">
             <p v-if="levels[selectLevel].count <= 0" class="tip">暂时没有日志.</p>
             <ul id="console-box">
-                <li v-for="(output, index) in getLogs" v-if="output.level == selectLevel && isShow(output)" :key="output.message" @click="output.showStack = !output.showStack">
+                <li v-for="(output, index) in getLogs" v-if="(selectLevel == 999 || output.level == selectLevel) && isShow(output)" :key="output.message" @click="output.showStack = !output.showStack">
                     <div class="icon">
                         <img src="../../assets/imgs/info.svg">
                     </div>
@@ -98,6 +101,18 @@ export default {
       return false
     },
     sendCommand(){
+
+      if(this.command.length <= 0){
+        return
+      }
+
+      if(this.command[0] == "@"){
+        if(this.command == "@clear"){
+          this.$store.commit("console/clear")
+        }
+        this.command = ""
+        return;
+      }
       
       var splitIndex = this.command.indexOf("://");
       var scheme = "catlib"

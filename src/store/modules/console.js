@@ -3,6 +3,7 @@ import debugLog from '../../api/debug.log'
 var state = {
   console: [],
   levels:{
+        999 : { name : "全部" , count : 0 },
         0 : { name : "紧急" , count : 0 },
         1 : { name : "警报" , count : 0 },
         2 : { name : "关键" , count : 0 },
@@ -12,7 +13,7 @@ var state = {
         6 : { name : "信息" , count : 0 },
         7 : { name : "调试" , count : 0 }
       },
-  selectLevel : 0
+  selectLevel : 999
 }
 
 var getters = { 
@@ -24,12 +25,20 @@ var getters = {
 var mutations = { 
     pushLog(state , response){
         for(var i = 0 ; i < response.data.Response.length; i++){
-            state.console.push(response.data.Response[i]);
-            state.levels[response.data.Response[i].level].count++;
+            state.console.push(response.data.Response[i])
+            state.levels[response.data.Response[i].level].count++
+            state.levels[999].count++
         }
     },
     selectLevel(state, payload){
         state.selectLevel = payload
+    },
+    clear(state){
+        state.console = []
+        for (var i in state.levels)
+        {
+            state.levels[i].count = 0
+        }
     }
 }
 
