@@ -1,4 +1,5 @@
 import router from '../../router'
+import Store from '../index'
 
 var state = {
   host: null,
@@ -37,6 +38,7 @@ var mutations = {
             state.isConnect = false
             router.push({ path:'/login' })
         }else{
+            Store.commit("console/clear")
             var result = payload.split(':')
             state.host = result[0];
             state.port = result.length > 1 ? result[1] : "9478"
