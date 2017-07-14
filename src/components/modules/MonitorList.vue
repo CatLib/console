@@ -13,23 +13,7 @@ export default {
   props:['monitorMaxNum'],
   data () { 
     return {
-      monitors: [
-        {  name : 'CPU平均值' , unit : 'MS' ,value: '32' }, 
-        {  name : '堆内存' , unit : 'MB' ,value: '32'}, 
-        {  name : '总内存' , unit : 'MB' ,value: '32'}, 
-        {  name : 'FPS' , unit : '/S',value: '32' }, 
-        {  name : '上行流量' , unit : 'KB',value: '32' }, 
-        {  name : '下行流量' , unit : 'KB' ,value: '32'},
-        {  name : '下行流量' , unit : 'KB',value: '32' },
-        {  name : '下行流量' , unit : 'KB',value: '32' },
-        {  name : '下行流量' , unit : 'KB' ,value: '32'},
-        {  name : '下行流量' , unit : 'KB' ,value: '32'},
-        {  name : '下行流量' , unit : 'KB',value: '32' }, 
-        {  name : '下行流量' , unit : 'KB' ,value: '32'},
-        {  name : '下行流量' , unit : 'KB' ,value: '32'}, 
-        {  name : '下行流量' , unit : 'KB' ,value: '32'},
-        {  name : '下行流量' , unit : 'KB',value: '32' },
-      ]
+      monitors: []
     } 
   }
 }
