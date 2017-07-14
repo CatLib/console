@@ -1,18 +1,13 @@
 <template>
   <div class="nav">
     <img src="../../assets/imgs/logo.png"></img>
-    <h1>CatLib 调试控制台</h1>
+    <h1>CatLib 调试控制台 <span>与设备 {{ getHostPort }} 断开链接,正在重连...</span></h1>
     <ul class="clear">
       <li><a href="#">切换设备</a></li>
       <li v-for="(key, value) in navs" :key="key">
         <router-link :to="key.url">{{ key.name }}</router-link>
       </li>
     </ul>
-    <div class="connect">
-      <img src="../../assets/imgs/unconnect.svg"></img>
-      <h2>和目标设备 {{ getHostPort }} 失去链接,正在尝试重连,请稍候...</h2>
-      <p><a href="#">切换设备</a></p>
-    </div>
   </div>
 </template>
 
@@ -53,6 +48,12 @@ $height = 30px
     line-height $height
     padding-left 10px
     font-size 16px
+    span
+      font-size 12px
+      font-weight normal
+      position relative
+      padding 2px
+      background-color rgb(65,65,65)
   ul
     float right
     height $height
