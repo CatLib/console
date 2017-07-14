@@ -13,7 +13,7 @@
 
         <div class="display-screen">
             <p v-if="levels[selectLevel].count <= 0" class="tip">暂时没有日志.</p>
-            <ul>
+            <ul id="console-box">
                 <li v-for="(output, index) in getLogs" v-if="output.level == selectLevel && isShow(output)" :key="output.message" @click="output.showStack = !output.showStack">
                     <div class="icon">
                         <img src="../../assets/imgs/info.svg">
@@ -36,19 +36,40 @@
                 </li>
             </ul>
         </div>
+
+        <div class="console-command">
+          <input type="text" @keyup.enter="sendCommand" v-model="command">
+          <a href="#" @click="sendCommand">发送(Enter)</a>
+        </div>
     </div>
 </template>
 
 <script>
 import debugLog from '../../api/debug.log'
+import webConsole from '../../api/web.console'
 export default {
   name: 'console_module',
   data () {
-    return { search : "" }
+    return { 
+      search : "", 
+      command: "",
+      isWatch : true ,
+      consoleBox : null,
+    }
+  },
+  mounted(){
+    this.$nextTick(() => {
+      this.consoleBox.scrollTop = this.consoleBox.scrollHeight;
+    })
+    this.consoleBox = document.getElementById('console-box')
+    this.consoleBox.addEventListener("wheel", this.handleScroll);
   },
   methods:{
     changeSelectLevel(level){
       this.$store.commit("console/selectLevel",level)
+    },
+    handleScroll(){
+      this.isWatch = this.consoleBox.scrollTop >= this.consoleBox.scrollHeight - 100 - 800;
     },
     isShow(log){
 
@@ -75,25 +96,59 @@ export default {
       }
 
       return false
+    },
+    sendCommand(){
+      
+      var splitIndex = this.command.indexOf("://");
+      var scheme = "catlib"
+      var path = this.command
+
+      if(splitIndex != -1){
+        scheme = this.command.substring(0, splitIndex);
+        path = this.command.substring(splitIndex + 3, this.command.length);
+      }
+      
+      this.command = "" 
+      webConsole.sendCommand(scheme + "/" + path,function(response){
+        //success
+      },function(response){
+        //faild
+      });
+      
     }
   },
   computed:{
     getLogs : function(){ return this.$store.getters["console/getLogs"] },
     levels : function(){ return this.$store.getters["console/getLevels"]},
     selectLevel : function(){ return this.$store.getters["console/getSelectLevel"]}
+  },watch:{
+    getLogs(){
+      if(this.isWatch){
+        this.$nextTick(() => {
+          this.consoleBox.scrollTop = this.consoleBox.scrollHeight;
+        })
+      }
+    }
   }
 }
 </script>
-
+<style scoped>
+ul::-webkit-scrollbar {
+  width: 3px;
+}
+ul::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2); 
+} 
+</style>
 
 <style scoped lang="stylus">
 @import "../../assets/stylus/_settings"
   .console-display
     margin 0px 5px 10px 5px
-    background-color $bg-color-v2
     width 100%
     .display-filter
       padding 10px
+      background-color $bg-color-v2
       .filter-level
         li
           padding 0px 5px 5px 5px
@@ -130,6 +185,8 @@ export default {
         line-height 80px
         text-align center
       ul
+        max-height 800px
+        overflow auto
         li:nth-child(even)
           background-color $bg-color-v3
         li
@@ -166,4 +223,27 @@ export default {
                 padding-top 5px
                 line-height 16px
                 color $bg-color-v5
+    .console-command
+      margin-top 10px
+      background-color $bg-color-v4
+      padding-left 10px
+      height 40px
+      input
+        float left
+        width 85%
+        border 0px
+        background-color $bg-color-v4
+        height 100%
+        color $bg-color-v6
+      a
+        text-align center
+        line-height 40px
+        float right
+        display block
+        background-color $bg-color-v7
+        width 10%
+        height 100%
+      a:hover
+        text-decoration none
+        background-color $bg-color-v8
 </style>
