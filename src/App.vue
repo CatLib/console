@@ -19,6 +19,12 @@ export default {
   },
   mounted:function(){
     this.$store.commit('env/reClientId')
+
+    var baseUrl = this.$store.getters["env/baseUrl"]
+    if(baseUrl != null && baseUrl != ""){
+      this.$store.commit('env/changeHost', baseUrl)
+    }
+
     setInterval(() => {
       this.$store.dispatch('console/refresh')
     }, 1000)

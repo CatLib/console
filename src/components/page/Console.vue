@@ -25,4 +25,5 @@ export default {
 
 .console
   padding 0 $global-margin + 10px $global-margin $global-margin
+  min-height 550px
 </style>
