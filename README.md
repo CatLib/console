@@ -1,23 +1,25 @@
-# catlib.console
 
-> The library project is being developed, please do not use
+CatLib 调试控制台，您可以通过控制台向客户端手机发送指令或者监控程序运行状态。
 
-> catlib console
 
-## Build Setup
+## 使用公共的控制台服务器
+
+CatLib 的控制台程序是基于您的浏览器发起控制指令，所以哪怕使用的是公共的控制台服务器也不会导致您的资料外泄。
+
+您可以通过 [console.catlib.io](http://console.catlib.io/) 访问公共的控制台服务器。
+
+## 在内网搭建控制台服务器
+
+首先您必须安装[nodejs](http://nodejs.cn/)安装完成后通过如下指令在 `localhost:7777` 启动控制台网站：
 
 ``` bash
-# install dependencies
 npm install
-
-# serve with hot reload at localhost:8080
 npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+通过如下指令编译控制台网站
+
+``` bash
+npm install
+npm run build
+```
