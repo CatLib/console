@@ -24,7 +24,6 @@ var getters = {
     getSelectLevel: (state) => state.selectLevel,
     getCursorCommand(state){
         if(state.commandStack == null){
-            console.dir(123)
             return ""
         }
         if(state.commandCursor >= state.commandStack.length){

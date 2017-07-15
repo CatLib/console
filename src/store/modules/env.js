@@ -5,7 +5,8 @@ var state = {
   host: null,
   port: null,
   clientId: 0,
-  isConnect: false
+  isConnect: false,
+  num : 0
 }
 
 var getters = {
@@ -18,9 +19,6 @@ var getters = {
     },
     hostPort(state){
         return state.host + ":" + state.port;
-    },
-    baseUrl(state){
-        return window.localStorage.getItem("baseUrl")
     },
     isConnect(state){
         return state.isConnect
@@ -38,12 +36,13 @@ var mutations = {
             state.isConnect = false
             router.push({ path:'/login' })
         }else{
-            Store.commit("console/clear")
             var result = payload.split(':')
             state.host = result[0];
             state.port = result.length > 1 ? result[1] : "9478"
             state.isConnect = true
-            window.localStorage.setItem("baseUrl",state.host + ":" + state.port)
+
+            window.localStorage.setItem("baseUrl", state.host + ":" + state.port)
+            Store.commit("console/clear")
             router.push({ path:'/' })
         }
     },

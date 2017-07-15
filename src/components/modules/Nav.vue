@@ -24,6 +24,7 @@ export default {
   },
   methods:{
     resetDriver : function(){
+      this.$store.commit("env/reClientId")
       this.$store.commit("env/changeHost" , null)
     }
   },

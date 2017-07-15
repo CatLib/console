@@ -16,8 +16,8 @@ export default {
       host: ''
     }
   },
-  mounted: function(){
-    this.host = this.$store.getters["env/baseUrl"]
+  created: function(){
+    this.host = window.localStorage.getItem("baseUrl")
   },
   methods: {
     commit : function()
