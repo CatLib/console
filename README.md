@@ -1,4 +1,4 @@
-# catlib.console
+# CatLib 调试控制台
 
 CatLib 调试控制台，您可以通过控制台向客户端手机发送指令或者监控程序运行状态。
 
