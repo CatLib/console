@@ -17,14 +17,13 @@
         <div class="display-screen">
             <p v-if="levels[selectLevel].count <= 0" class="tip">暂时没有日志.</p>
             <ul id="console-box">
-                <li v-for="(output, index) in getLogs" v-if="(selectLevel == 999 || output.level == selectLevel) && isShow(output)" :key="output.message" @click="output.showStack = !output.showStack">
+                <li v-for="(output, index) in getLogs" v-if="(selectLevel == 999 || output.level == selectLevel) && isShow(output)" :key="output.id" @click="output.showStack = !output.showStack">
                     <div class="icon">
-                        <img src="../../assets/imgs/info.svg">
+                        <img :src="output.level | toImg">
                     </div>
                     <div class="message">
-                        <p class="title">{{output.message}}</p>
-                       
-                        <p class="namespace">({{output.namespace}})</p>
+                        <p class="title" v-html="highlight(output.message,search)"></p>
+                        <p class="namespace">{{ output.namespace }}</p>
         
                         <transition name="slide-fade">
                         <blockquote v-show="output.showStack">
@@ -41,7 +40,7 @@
         </div>
 
         <div class="console-command">
-          <input type="text" @keyup.enter="sendCommand" v-model="command">
+          <input type="text" @keyup.enter="sendCommand" @keyup.38="commandNext" @keyup.40="commandPrev" v-model="command">
           <a href="#" @click="sendCommand">发送(Enter)</a>
         </div>
     </div>
@@ -67,6 +66,11 @@ export default {
     this.consoleBox = document.getElementById('console-box')
     this.consoleBox.addEventListener("wheel", this.handleScroll);
   },
+  filters:{
+    toImg(value){
+      return "/static/imgs/level_" + value + ".svg"
+    }
+  },
   methods:{
     changeSelectLevel(level){
       this.$store.commit("console/selectLevel",level)
@@ -74,8 +78,20 @@ export default {
     handleScroll(){
       this.isWatch = this.consoleBox.scrollTop >= this.consoleBox.scrollHeight - 100 - 800;
     },
-    isShow(log){
+    highlight(value , search){
+      if(search == ""){
+        return value
+      }
 
+      var commandSplitIndex = search.indexOf(":")
+      if(commandSplitIndex >= 0){
+        return value
+      }
+
+      return value.replace(new RegExp(search,"gmi"), "<b style=\"color:rgb(244,100,95)\">" + search + "</b>")
+    },
+    isShow(log){
+      
       if(this.search == ""){
         return true
       }
@@ -86,7 +102,7 @@ export default {
         var command = this.search.substring(0, commandSplitIndex)
         var val = this.search.substring(commandSplitIndex + 1, this.search.length)
         if(command == "ns"){
-          if(log.namespace.toLowerCase().indexOf(val.toLowerCase()) != 0){
+          if(log.namespace.toLowerCase().indexOf(val.toLowerCase()) < 0){
             return false
           }
           return true
@@ -123,6 +139,7 @@ export default {
         path = this.command.substring(splitIndex + 3, this.command.length);
       }
       
+      this.$store.commit("console/addCommand" , this.command)
       this.command = "" 
       webConsole.sendCommand(scheme + "/" + path,function(response){
         //success
@@ -130,6 +147,14 @@ export default {
         //faild
       });
       
+    },
+    commandNext(){
+      this.command = this.$store.getters["console/getCursorCommand"]
+      this.$store.commit("console/next")
+    },
+    commandPrev(){
+      this.$store.commit("console/prev")
+      this.command = this.$store.getters["console/getCursorCommand"]
     }
   },
   computed:{
@@ -200,7 +225,7 @@ ul::-webkit-scrollbar-thumb {
         line-height 80px
         text-align center
       ul
-        max-height 800px
+        max-height 600px
         overflow auto
         li:nth-child(even)
           background-color $bg-color-v3
@@ -208,11 +233,14 @@ ul::-webkit-scrollbar-thumb {
           padding 10px
           cursor pointer
           .icon
+            position relative
+            top 4px
+            left 2px
             float left
             text-align center
             img
-              width 32px
-              height 32px
+              width 26px
+              height 26px
           .slide-fade-enter-active
             transition all .3s ease
           .slide-fade-leave-active
@@ -226,6 +254,8 @@ ul::-webkit-scrollbar-thumb {
             line-height 32px
             p.title
               font-size 13px
+              .h
+                color $bg-color-v7
             p.namespace
               height 16px
               line-height 16px

@@ -19,7 +19,7 @@ export default {
   },
   mounted:function(){
     this.$store.commit('env/reClientId')
-
+    this.$store.commit('console/loadCommandStack')
     var baseUrl = this.$store.getters["env/baseUrl"]
     if(baseUrl != null && baseUrl != ""){
       this.$store.commit('env/changeHost', baseUrl)
