@@ -19,7 +19,7 @@
             <ul id="console-box">
                 <li v-for="(output, index) in getLogs" v-if="(selectLevel == 999 || output.level == selectLevel) && isShow(output)" :key="output.id" @click="output.showStack = !output.showStack">
                     <div class="icon">
-                        <img :src="output.level | toImg">
+                        <img :src="output.level | toImg"/>
                     </div>
                     <div class="message">
                         <p class="title" v-html="highlight(output.message,search)"></p>

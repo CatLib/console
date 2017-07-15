@@ -1,6 +1,6 @@
 <template>
   <div class="nav">
-    <img src="../../assets/imgs/logo.png"></img>
+    <img src="../../assets/imgs/logo.png"/>
     <h1>CatLib 调试控制台 <span v-if="isShowReConnect">与设备 {{ getHostPort }} 断开链接,正在重连...</span></h1>
     <ul v-if="isShowNav" class="clear">
       <li><a href="#" @click="resetDriver">切换设备</a></li>

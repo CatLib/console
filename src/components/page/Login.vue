@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <img src="../../assets/imgs/phone.svg"></img>
+    <img src="../../assets/imgs/phone.svg" />
     <div class="input">
       <input type="text" v-model="host" v-on:keyup.enter="commit">
     </div>
