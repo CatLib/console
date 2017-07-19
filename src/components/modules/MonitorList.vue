@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import debugMonitor from '../../api/debug.monitor'
 export default {
   name: 'monitor_module',
   props:['monitorMaxNum'],
@@ -15,6 +16,21 @@ export default {
     return {
       monitors: []
     } 
+  },
+  methods:{
+    refreshMonitor(){
+      debugMonitor.getMonitors(function(response){
+        console.dir(response)
+      },function(response){
+        //faild
+      });
+    }
+  },
+  created: function(){
+    console.dir("created")
+  },
+  beforeDestroy:function(){
+    console.dir("before destroy")
   }
 }
 </script>
