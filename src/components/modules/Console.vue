@@ -5,7 +5,7 @@
                 <li @click="changeSelectLevel(999)" :class="{ 'selected': selectLevel == 999 }">
                 {{ levels[999].name }}<span v-if="levels[999].count > 0">({{ levels[999].count }})</span>
                 </li>
-                <li v-for="(level, index) in levels" v-if="index != 999" :key="level" @click="changeSelectLevel(index)" :class="{ 'selected': selectLevel == index }">
+                <li v-for="(level, index) in levels" v-if="index != 999" :key="index" @click="changeSelectLevel(index)" :class="{ 'selected': selectLevel == index }">
                 {{ level.name }}<span v-if="level.count > 0">({{ level.count }})</span>
                 </li>
                 <li class="filter-input">
@@ -17,7 +17,7 @@
         <div class="display-screen">
             <p v-if="levels[selectLevel].count <= 0" class="tip">暂时没有日志.</p>
             <ul id="console-box">
-                <li v-for="(output, index) in getLogs" v-if="(selectLevel == 999 || output.level == selectLevel) && isShow(output)" :key="output.id" @click="output.showStack = !output.showStack">
+                <li v-for="(output, index) in getLogs" v-if="(selectLevel == 999 || output.level == selectLevel) && isShow(output)" :key="index" @click="output.showStack = !output.showStack">
                     <div class="icon">
                         <img :src="output.level | toImg"/>
                     </div>

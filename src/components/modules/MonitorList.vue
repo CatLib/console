@@ -1,6 +1,6 @@
 <template>
   <div class="monitor-list clear">
-    <div v-for="(monitor, index) in monitors" v-if="index < monitorMaxNum" :key="monitor.value" class="monitor-block">
+    <div v-for="(monitor, index) in monitors" v-if="index < monitorMaxNum" :key="index" class="monitor-block">
         <h1>{{ monitor.name }}</h1>
         <h2>{{ monitor.value }}<span>{{ monitor.unit }}</span></h2>
     </div>
@@ -14,23 +14,27 @@ export default {
   props:['monitorMaxNum'],
   data () { 
     return {
-      monitors: []
+      monitors: [],
+      timer :null
     } 
   },
   methods:{
     refreshMonitor(){
+      var vueComponent = this;
       debugMonitor.getMonitors(function(response){
-        console.dir(response)
+        vueComponent.monitors = response.data.Response
       },function(response){
         //faild
       });
     }
   },
-  created: function(){
-    console.dir("created")
+  mounted: function(){
+    this.timer = setInterval(() => {
+      this.refreshMonitor()
+    }, 1000)
   },
   beforeDestroy:function(){
-    console.dir("before destroy")
+    clearInterval(this.timer)
   }
 }
 </script>
