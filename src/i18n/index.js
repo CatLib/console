@@ -10,3 +10,7 @@ Vue.i18n.add('en', en);
 Vue.i18n.add('zh-CN', zh_CN);
 
 Vue.i18n.set('zh-CN')
+
+Vue.filter('i18n', function(value){
+    return Vue.i18n.translate(value)
+});

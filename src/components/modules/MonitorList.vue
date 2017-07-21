@@ -1,8 +1,8 @@
 <template>
   <div class="monitor-list clear">
     <div v-for="(monitor, index) in monitors" v-if="index < monitorMaxNum" :key="index" class="monitor-block">
-        <h1>{{ monitor.name }}</h1>
-        <h2>{{ monitor.value }}<span>{{ monitor.unit }}</span></h2>
+        <h1>{{ monitor.name|i18n }}</h1>
+        <h2>{{ monitor.value }}<span>{{ monitor.unit|i18n }}</span></h2>
     </div>
   </div>
 </template>
