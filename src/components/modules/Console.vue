@@ -23,7 +23,7 @@
                     </div>
                     <div class="message">
                         <p class="title" v-html="highlight(output.message,search)"></p>
-                        <p class="namespace">{{ output.namespace }}</p>
+                        <p class="namespace">{{ output.namespace }} - {{ output.time | toTimeStr }}</p>
         
                         <transition name="slide-fade">
                         <blockquote v-show="output.showStack">
@@ -69,6 +69,10 @@ export default {
   filters:{
     toImg(value){
       return "/static/imgs/level_" + value + ".svg"
+    },
+    toTimeStr(value){
+      var date = new Date(value * 1000);
+      return date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
     }
   },
   methods:{
