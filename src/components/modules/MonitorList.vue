@@ -50,6 +50,9 @@ export default {
       var searchArr = inputSearch.split(";")
       for(var n in searchArr){
         var search = searchArr[n]
+        if(search == ""){
+            continue
+        }
         var commandSplitIndex = search.indexOf("@")
         if(commandSplitIndex >= 0){
             continue
@@ -58,8 +61,11 @@ export default {
         keywords.push(search)
       }
 
-      var regex = "(" + keywords.join("|")+")"
-      return value = value.replace(new RegExp(regex,"gmi"), "<b style=\"color:rgb(244,100,95)\">" + search + "</b>")
+      for(var i in keywords){
+          value = value.replace(new RegExp(keywords[i],"gmi"), "<b style=\"color:rgb(244,100,95)\">" + keywords[i] + "</b>");
+      }
+
+      return value
     },
     isMatchSearch:function(monitor,inputSearch,tag){
         if(inputSearch == ""){
@@ -68,22 +74,23 @@ export default {
         var searchArr = inputSearch.split(";")
         for(var n in searchArr){
             var search = searchArr[n]
-            if(search != ""){
-                var commandSplitIndex = search.indexOf("@")
-                if(commandSplitIndex >= 0){
-                    var command = search.substring(0, commandSplitIndex)
-                    var val = search.substring(commandSplitIndex + 1, search.length)
-                    if(command == "tag"){
-                        if(tag.toLowerCase().indexOf(val.toLowerCase()) >= 0
-                            || this.$t(tag).toLowerCase().indexOf(val.toLowerCase()) >= 0){
-                            return true
-                        }
-                    }
-                }else{
-                    if(monitor.name.toLowerCase().indexOf(search.toLowerCase()) >= 0 || 
-                        this.$t(monitor.name).toLowerCase().indexOf(search.toLowerCase()) >= 0){
+            if(search == ""){
+                continue
+            }
+            var commandSplitIndex = search.indexOf("@")
+            if(commandSplitIndex >= 0){
+                var command = search.substring(0, commandSplitIndex)
+                var val = search.substring(commandSplitIndex + 1, search.length)
+                if(command == "tag"){
+                    if(tag.toLowerCase().indexOf(val.toLowerCase()) >= 0
+                        || this.$t(tag).toLowerCase().indexOf(val.toLowerCase()) >= 0){
                         return true
                     }
+                }
+            }else{
+                if(monitor.name.toLowerCase().indexOf(search.toLowerCase()) >= 0 || 
+                    this.$t(monitor.name).toLowerCase().indexOf(search.toLowerCase()) >= 0){
+                    return true
                 }
             }
         }   
