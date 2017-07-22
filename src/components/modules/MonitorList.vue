@@ -41,16 +41,54 @@ export default {
         //faild
       });
     },
-    highlight(value , search){
-      if(search == ""){
+    highlight(value , inputSearch){
+      if(inputSearch == ""){
         return value
       }
-      var commandSplitIndex = search.indexOf("@")
-      if(commandSplitIndex >= 0){
-        return value
+
+      var keywords = [];
+      var searchArr = inputSearch.split(";")
+      for(var n in searchArr){
+        var search = searchArr[n]
+        var commandSplitIndex = search.indexOf("@")
+        if(commandSplitIndex >= 0){
+            continue
+        }
+
+        keywords.push(search)
       }
-      return value.replace(new RegExp(search,"gmi"), "<b style=\"color:rgb(244,100,95)\">" + search + "</b>")
+
+      var regex = "(" + keywords.join("|")+")"
+      return value = value.replace(new RegExp(regex,"gmi"), "<b style=\"color:rgb(244,100,95)\">" + search + "</b>")
     },
+    isMatchSearch:function(monitor,inputSearch,tag){
+        if(inputSearch == ""){
+            return true
+        }
+        var searchArr = inputSearch.split(";")
+        for(var n in searchArr){
+            var search = searchArr[n]
+            if(search != ""){
+                var commandSplitIndex = search.indexOf("@")
+                if(commandSplitIndex >= 0){
+                    var command = search.substring(0, commandSplitIndex)
+                    var val = search.substring(commandSplitIndex + 1, search.length)
+                    if(command == "tag"){
+                        if(tag.toLowerCase().indexOf(val.toLowerCase()) >= 0
+                            || this.$t(tag).toLowerCase().indexOf(val.toLowerCase()) >= 0){
+                            return true
+                        }
+                    }
+                }else{
+                    if(monitor.name.toLowerCase().indexOf(search.toLowerCase()) >= 0 || 
+                        this.$t(monitor.name).toLowerCase().indexOf(search.toLowerCase()) >= 0){
+                        return true
+                    }
+                }
+            }
+        }   
+        return false
+    }
   },
   computed: {
     loadingMessage:function(){
@@ -69,25 +107,9 @@ export default {
         for (var i in this.monitors){
 
             var tag = this.monitors[i].tags.length > 0 ? this.monitors[i].tags[0] : 'tags.undefiend'
-            if(this.search != ""){
 
-                var commandSplitIndex = this.search.indexOf("@")
-                if(commandSplitIndex >= 0){
-                    var command = this.search.substring(0, commandSplitIndex)
-                    var val = this.search.substring(commandSplitIndex + 1, this.search.length)
-                    if(command == "tag"){
-                        if(tag.toLowerCase().indexOf(val.toLowerCase()) < 0
-                            && this.$t(tag).toLowerCase().indexOf(val.toLowerCase())){
-                            continue
-                        }
-                    }
-                }else{
-                    if(this.monitors[i].name.toLowerCase().indexOf(this.search.toLowerCase()) < 0){
-                        if(this.$t(this.monitors[i].name).toLowerCase().indexOf(this.search.toLowerCase()) < 0){
-                            continue;
-                        }
-                    }
-                }
+            if(!this.isMatchSearch(this.monitors[i], this.search , tag)){
+                continue;
             }
 
             var finder = function(arr , find){

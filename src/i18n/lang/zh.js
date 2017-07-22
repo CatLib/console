@@ -5,6 +5,15 @@ export default {
     "monitor.screen.width" : "屏幕宽度",
     "monitor.screen.height" : "屏幕高度",
     "monitor.screen.dpi" : "DPI",
+    "monitor.screen.landscape.left" : "允许向左旋转屏幕",
+    "monitor.screen.landscape.right" : "允许向右旋转屏幕",
+    "monitor.screen.landscape.portrait" : "允许纵向旋转屏幕",
+    "monitor.screen.landscape.portrait.upside.down" : "允许纵向倒置旋转屏幕",
+    "monitor.screen.orientation" : "屏幕当前朝向",
+    "monitor.screen.sleep.time":"休眠时间",
+
+    "code.screen.sleep.time.never.sleep" : "永不休眠",
+    "code.screen.sleep.time.system.setting" : "根据系统设定",
 
     "unit.px" : "PX",
     "unit.dpi" : "DPI",
