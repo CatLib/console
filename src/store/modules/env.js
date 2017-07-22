@@ -6,6 +6,8 @@ var state = {
   port: null,
   clientId: 0,
   isConnect: false,
+  isCheckGuid : false,
+  guid : "",
   num : 0
 }
 
@@ -15,13 +17,16 @@ var getters = {
               state.host != null
     },
     url(state){
-        return "http://" + state.host + ":" + state.port;
+        return "http://" + state.host + ":" + state.port
     },
     hostPort(state){
-        return state.host + ":" + state.port;
+        return state.host + ":" + state.port
     },
     isConnect(state){
         return state.isConnect
+    },
+    isCheckGuid(state){
+        return state.isCheckGuid
     },
     clientId(state){
         return state.clientId
@@ -49,8 +54,15 @@ var mutations = {
     reClientId(state){
         state.clientId = Math.floor(Math.random() * 65535);
     },
+    changeGuid(state,payload){
+        state.isCheckGuid = true
+        state.guid = payload
+    },
     changeConnectStatu(state, payload){
         state.isConnect = payload;
+        if(!state.isConnect){
+            state.isCheckGuid = false
+        }
     }
 }
 

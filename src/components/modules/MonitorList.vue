@@ -45,7 +45,7 @@ export default {
       if(search == ""){
         return value
       }
-      var commandSplitIndex = search.indexOf(":")
+      var commandSplitIndex = search.indexOf("@")
       if(commandSplitIndex >= 0){
         return value
       }
@@ -71,7 +71,7 @@ export default {
             var tag = this.monitors[i].tags.length > 0 ? this.monitors[i].tags[0] : 'tags.undefiend'
             if(this.search != ""){
 
-                var commandSplitIndex = this.search.indexOf(":")
+                var commandSplitIndex = this.search.indexOf("@")
                 if(commandSplitIndex >= 0){
                     var command = this.search.substring(0, commandSplitIndex)
                     var val = this.search.substring(commandSplitIndex + 1, this.search.length)

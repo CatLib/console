@@ -1,4 +1,5 @@
 import debugLog from '../../api/debug.log'
+import webConsole from '../../api/web.console'
 
 var state = {
   console: [],
@@ -98,16 +99,33 @@ var actions = {
     refresh({rootGetters , commit }){
         if(rootGetters["env/authorizd"])
         {
-            debugLog.getLog(rootGetters["env/clientId"],(response)=>{
-                if(!rootGetters["env/isConnect"]){
-                    commit('env/changeConnectStatu',true, { root: true } )
-                }
-                commit("pushLog", response);
-            }, ()=>{ 
-                if(rootGetters["env/isConnect"]){
-                    commit('env/changeConnectStatu',false, { root: true } ) 
-                }
-            })
+            var getLog = function(){
+                debugLog.getLog(rootGetters["env/clientId"],(response)=>{
+                    if(!rootGetters["env/isConnect"]){
+                        commit('env/changeConnectStatu',true, { root: true } )
+                    }
+                    commit("pushLog", response);
+                }, ()=>{ 
+                    if(rootGetters["env/isConnect"]){
+                        commit('env/changeConnectStatu',false, { root: true } ) 
+                    }
+                })
+            }
+            if(rootGetters["env/isCheckGuid"]){
+                getLog();
+            }else{
+                webConsole.getGuid((response)=>{
+                    if(rootGetters["env/getGuid"] != response.data.Response.guid){
+                        commit('clear')
+                    }
+                    commit('env/changeGuid',response.data.Response.guid, { root: true })
+                    getLog();
+                }, ()=>{ 
+                    if(rootGetters["env/isConnect"]){
+                        commit('env/changeConnectStatu',false, { root: true } ) 
+                    }
+                })
+            }
         }
     }
 }

@@ -87,7 +87,7 @@ export default {
         return value
       }
 
-      var commandSplitIndex = search.indexOf(":")
+      var commandSplitIndex = search.indexOf("@")
       if(commandSplitIndex >= 0){
         return value
       }
@@ -101,7 +101,7 @@ export default {
       }
 
       // find with command
-      var commandSplitIndex = this.search.indexOf(":")
+      var commandSplitIndex = this.search.indexOf("@")
       if(commandSplitIndex >= 0){
         var command = this.search.substring(0, commandSplitIndex)
         var val = this.search.substring(commandSplitIndex + 1, this.search.length)
