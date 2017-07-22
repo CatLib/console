@@ -33,7 +33,7 @@ export default {
     "ui.send" : "Send(Enter)",
     "ui.nolog" : "No Log.",
     "ui.disconnect":"Disconnect from device {host}, reconnect...",
-    "ui.nav.driver" : "Switch",
+    "ui.nav.driver" : "Driver",
     "ui.nav.console" : "Console",
     "ui.nav.monitor" : "Monitor",
     "ui.usepc" : "Please use the computer browser to access the site",

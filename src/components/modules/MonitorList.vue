@@ -57,7 +57,7 @@ export default {
         if(this.search != ""){
             return this.$t("ui.notfind" , { "keyword" : this.search })
         }
-        
+
         if(!this.$store.getters["env/isConnect"]){
             return this.$t("ui.notconnect")
         }
@@ -111,6 +111,7 @@ export default {
     }
   },
   mounted: function(){
+    this.refreshMonitor()
     this.timer = setInterval(() => {
       this.refreshMonitor()
     }, 1000)

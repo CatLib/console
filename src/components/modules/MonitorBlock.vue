@@ -29,6 +29,7 @@ export default {
     }
   },
   mounted: function(){
+    this.refreshMonitor()
     this.timer = setInterval(() => {
       this.refreshMonitor()
     }, 1000)
