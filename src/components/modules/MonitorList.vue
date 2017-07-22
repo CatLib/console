@@ -61,11 +61,10 @@ export default {
         keywords.push(search)
       }
 
-      for(var i in keywords){
-          value = value.replace(new RegExp(keywords[i],"gmi"), "<b style=\"color:rgb(244,100,95)\">" + keywords[i] + "</b>");
-      }
-
-      return value
+      var regex = "(" + keywords.join("|") + ")"
+      return value.replace(new RegExp(regex,"gmi"),function(key){
+          return "<b style=\"color:rgb(244,100,95)\">" + key + "</b>"
+      })
     },
     isMatchSearch:function(monitor,inputSearch,tag){
         if(inputSearch == ""){
