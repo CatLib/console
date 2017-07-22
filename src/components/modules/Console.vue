@@ -176,11 +176,11 @@ export default {
     levels : function(){ return this.$store.getters["console/getLevels"]},
     selectLevel : function(){ return this.$store.getters["console/getSelectLevel"]},
     loadingMessage:function(){
-        if(!this.$store.getters["env/isConnect"]){
-            return this.$t("ui.notconnect")
-        }
         if(this.search != ""){
             return this.$t("ui.notfind" , { "keyword" : this.search })
+        }
+        if(!this.$store.getters["env/isConnect"]){
+            return this.$t("ui.notconnect")
         }
         return this.$t("ui.nolog")
     },

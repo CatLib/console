@@ -54,12 +54,14 @@ export default {
   },
   computed: {
     loadingMessage:function(){
-        if(!this.$store.getters["env/isConnect"]){
-            return this.$t("ui.notconnect")
-        }
         if(this.search != ""){
             return this.$t("ui.notfind" , { "keyword" : this.search })
         }
+        
+        if(!this.$store.getters["env/isConnect"]){
+            return this.$t("ui.notconnect")
+        }
+        
         return this.$t("ui.loading")
     },
     monitorList : function(){
