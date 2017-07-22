@@ -11,6 +11,14 @@ export default {
     "monitor.screen.landscape.portrait.upside.down" : "允许纵向倒置旋转屏幕",
     "monitor.screen.orientation" : "屏幕当前朝向",
     "monitor.screen.sleep.time":"休眠时间",
+    "monitor.scene.count" : "当前加载的场景数量",
+    "monitor.scene.count.buildsetting" : "BuildSetting中的场景数量",
+    "monitor.scene.active.name":"当前场景的名字",
+    "monitor.scene.active.path":"当前场景路径",
+    "monitor.scene.active.buildindex":"BuildSetting的下标(AB固定-1)",
+    "monitor.scene.active.isdirty" : "场景是否被修改",
+    "monitor.scene.active.isloaded" : "场景是否完成载入",
+    "monitor.scene.active.rootcount" : "场景中根元素数量",
 
     "code.screen.sleep.time.never.sleep" : "永不休眠",
     "code.screen.sleep.time.system.setting" : "根据系统设定",
@@ -24,9 +32,11 @@ export default {
     "unit.size.gb" : "GB",
     "unit.size.tb" : "TB",
     "unit.size.pb" : "PB",
+    "unit.number" : "个",
 
     "tags.common" : "通用",
     "tags.screen" : "屏幕信息",
+    "tags.scene" : "场景信息",
 
     "debug.level.all" : "全部",
     "debug.level.emergency" : "紧急",
