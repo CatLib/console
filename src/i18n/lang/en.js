@@ -1,10 +1,10 @@
 export default {
     "monitor.memory.total": "Total Memory",
     "monitor.memory.heap" : "Heap Memory",
-    "monitor.performance.fps" : "Fps",
+    "monitor.performance.fps" : "FPS",
     "monitor.screen.width" : "Screen Width",
     "monitor.screen.height" : "Screen Height",
-    "monitor.screen.dpi" : "Dpi",
+    "monitor.screen.dpi" : "DPI",
 
     "unit.px" : "PX",
     "unit.dpi" : "DPI",
@@ -15,4 +15,31 @@ export default {
     "unit.size.gb" : "GB",
     "unit.size.tb" : "TB",
     "unit.size.pb" : "PB",
+
+    "tags.common" : "Common",
+    "tags.screen" : "Screen Info",
+
+    "debug.level.all" : "All",
+    "debug.level.emergency" : "Emergency",
+    "debug.level.alert" : "Alert",
+    "debug.level.critical" : "Critical",
+    "debug.level.error" : "Error",
+    "debug.level.warning" : "Warning",
+    "debug.level.notice" : "Notice",
+    "debug.level.info" : "Info",
+    "debug.level.debug" : "Debug",
+
+    "ui.title" : "CatLib Console",
+    "ui.send" : "Send(Enter)",
+    "ui.nolog" : "No Log.",
+    "ui.disconnect":"Disconnect from device {host}, reconnect...",
+    "ui.nav.driver" : "Switch",
+    "ui.nav.console" : "Console",
+    "ui.nav.monitor" : "Monitor",
+    "ui.usepc" : "Please use the computer browser to access the site",
+    "ui.footer.description" : "Meow meow, come and play meow~",
+    "ui.login.input":"Please enter the IP address of the device to be debugged, such as:",
+    "ui.notconnect":"Waiting for device link...",
+    "ui.notfind":"No results were found to match the keywords <b style=\"color:rgb(244,100,95)\">{keyword}</b>.",
+    "ui.loading":"Loading, please wait..."
 };

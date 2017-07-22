@@ -3,10 +3,10 @@
         <div class="display-filter">
             <ul class="filter-level clear">
                 <li @click="changeSelectLevel(999)" :class="{ 'selected': selectLevel == 999 }">
-                {{ levels[999].name }}<span v-if="levels[999].count > 0">({{ levels[999].count }})</span>
+                {{ levels[999].name|i18n }}<span v-if="levels[999].count > 0">({{ levels[999].count }})</span>
                 </li>
                 <li v-for="(level, index) in levels" v-if="index != 999" :key="index" @click="changeSelectLevel(index)" :class="{ 'selected': selectLevel == index }">
-                {{ level.name }}<span v-if="level.count > 0">({{ level.count }})</span>
+                {{ level.name|i18n }}<span v-if="level.count > 0">({{ level.count }})</span>
                 </li>
                 <li class="filter-input">
                   <input type="text" v-model="search">
@@ -15,11 +15,11 @@
         </div>
 
         <div class="display-screen">
-            <p v-if="levels[selectLevel].count <= 0" class="tip">暂时没有日志.</p>
             <ul id="console-box">
-                <li v-for="(output, index) in getLogs" v-if="(selectLevel == 999 || output.level == selectLevel) && isShow(output)" :key="index" @click="output.showStack = !output.showStack">
+                <p v-if="getLogs.length <= 0" v-html="loadingMessage" class="tip"></p>
+                <li v-for="(output, index) in getLogs" :key="index" @click="output.showStack = !output.showStack">
                     <div class="icon">
-                        <img :src="output.level | toImg"/>
+                        <img :src="output.level|toImg"/>
                     </div>
                     <div class="message">
                         <p class="title" v-html="highlight(output.message,search)"></p>
@@ -41,7 +41,7 @@
 
         <div class="console-command">
           <input type="text" @keyup.enter="sendCommand" @keyup.38="commandNext" @keyup.40="commandPrev" v-model="command">
-          <a href="#" @click="sendCommand">发送(Enter)</a>
+          <a href="#" @click="sendCommand">{{ "ui.send"|i18n }}</a>
         </div>
     </div>
 </template>
@@ -162,9 +162,28 @@ export default {
     }
   },
   computed:{
-    getLogs : function(){ return this.$store.getters["console/getLogs"] },
+    getLogs : function(){ 
+      var result = this.$store.getters["console/getLogs"]
+      var output = [];
+
+      for(var i in result){
+        if((this.selectLevel == 999 || result[i].level == this.selectLevel) && this.isShow(result[i])){
+          output.push(result[i])
+        }
+      }
+      return output
+    },
     levels : function(){ return this.$store.getters["console/getLevels"]},
-    selectLevel : function(){ return this.$store.getters["console/getSelectLevel"]}
+    selectLevel : function(){ return this.$store.getters["console/getSelectLevel"]},
+    loadingMessage:function(){
+        if(!this.$store.getters["env/isConnect"]){
+            return this.$t("ui.notconnect")
+        }
+        if(this.search != ""){
+            return this.$t("ui.notfind" , { "keyword" : this.search })
+        }
+        return this.$t("ui.nolog")
+    },
   },watch:{
     getLogs(){
       if(this.isWatch){

@@ -3,15 +3,15 @@ import debugLog from '../../api/debug.log'
 var state = {
   console: [],
   levels:{
-        999 : { name : "全部" , count : 0 },
-        0 : { name : "紧急" , count : 0 },
-        1 : { name : "警报" , count : 0 },
-        2 : { name : "关键" , count : 0 },
-        3 : { name : "错误" , count : 0 },
-        4 : { name : "警告" , count : 0 },
-        5 : { name : "通知" , count : 0 },
-        6 : { name : "信息" , count : 0 },
-        7 : { name : "调试" , count : 0 }
+        999 : { name : "debug.level.all" , count : 0 },
+        0 : { name : "debug.level.emergency" , count : 0 },
+        1 : { name : "debug.level.alert" , count : 0 },
+        2 : { name : "debug.level.critical" , count : 0 },
+        3 : { name : "debug.level.error" , count : 0 },
+        4 : { name : "debug.level.warning" , count : 0 },
+        5 : { name : "debug.level.notice" , count : 0 },
+        6 : { name : "debug.level.info" , count : 0 },
+        7 : { name : "debug.level.debug" , count : 0 }
       },
   selectLevel : 999,
   commandStack : [],

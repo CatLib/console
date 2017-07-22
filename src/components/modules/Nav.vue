@@ -1,11 +1,12 @@
 <template>
   <div class="nav">
     <img src="../../assets/imgs/logo.png"/>
-    <h1>CatLib 调试控制台 <span v-if="isShowReConnect">与设备 {{ getHostPort }} 断开链接,正在重连...</span></h1>
-    <ul v-if="isShowNav" class="clear">
-      <li><a href="#" @click="resetDriver">切换设备</a></li>
+    <h1>{{"ui.title"|i18n}} <span v-if="isShowReConnect">{{ $t("ui.disconnect" , { "host" : getHostPort}) }}</span></h1>
+    <ul class="clear">
+      <li><a @click="changeLang">{{lang}}</a></li>
+      <li v-if="isShowNav"><a href="#" @click="resetDriver">{{"ui.nav.driver"|i18n}}</a></li>
       <li v-for="(key, value) in navs" :key="key">
-        <router-link :to="key.url">{{ key.name }}</router-link>
+        <router-link :to="key.url" v-if="isShowNav">{{ key.name|i18n }}</router-link>
       </li>
     </ul>
   </div>
@@ -17,8 +18,8 @@ export default {
   data () {
     return {
       'navs' : [ 
-        { name : '数据监控' , url : "/monitor" } , 
-        { name : '控制台' , url : "/console"} 
+        { name : 'ui.nav.monitor' , url : "/monitor" } , 
+        { name : 'ui.nav.console' , url : "/console"} 
       ]
     }
   },
@@ -26,6 +27,12 @@ export default {
     resetDriver : function(){
       this.$store.commit("env/reClientId")
       this.$store.commit("env/changeHost" , null)
+    },
+    changeLang:function(){
+      var lang = this.$i18n.locale() == "en"?"zh":"en";
+      this.$i18n.set(lang)
+      window.localStorage.setItem("lang", lang)
+      return true
     }
   },
   computed: {
@@ -37,6 +44,9 @@ export default {
     },
     isShowNav: function(){
       return this.$store.getters["env/authorizd"]
+    },
+    lang:function(){
+      return this.$i18n.locale() == "en" ? "中文" : "English"
     }
   }
 }
@@ -77,4 +87,5 @@ $height = 30px
       a:hover
         text-decoration none
         color $bg-color-v7
+        cursor pointer
 </style>

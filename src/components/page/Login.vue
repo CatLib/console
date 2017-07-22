@@ -4,7 +4,7 @@
     <div class="input">
       <input type="text" v-model="host" v-on:keyup.enter="commit">
     </div>
-    <p>请输入要调试设备的IP地址,如:<span>192.168.1.1:9478</span></p>
+    <p>{{"ui.login.input"|i18n}}<span>192.168.1.1:9478</span></p>
   </div>
 </template>
 

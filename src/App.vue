@@ -5,11 +5,11 @@
     <div class="use-pc">
       <img src="/static/imgs/disable.svg" />
       <br>
-      <p>请使用电脑浏览器访问该网站</p>
+      <p>{{"ui.usepc"|i18n}}</p>
     </div>
     <footer>
       <p>© Copyright 2017 catlib.io All Rights Reserved</p>
-      <p>喵喵喵，快来一起玩喵~</p>
+      <p>{{"ui.footer.description"|i18n}}</p>
     </footer>
   </div>
 </template>

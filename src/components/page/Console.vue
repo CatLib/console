@@ -8,12 +8,12 @@
 </template>
 
 <script>
-import MonitorList from '@/components/modules/MonitorList'
+import MonitorBlock from '@/components/modules/MonitorBlock'
 import Console from '@/components/modules/Console'
 export default {
   name: 'console',
   components: {
-    'monitor-view': MonitorList,
+    'monitor-view': MonitorBlock,
     'console-view': Console,
   },
   data () { return { monitorMaxNum : 6 } }

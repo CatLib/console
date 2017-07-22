@@ -1,7 +1,7 @@
 <template>
   <div class="monitor">
 
-    <monitor-view :monitor-max-num="monitorMaxNum"></monitor-view>
+    <monitor-view></monitor-view>
     
   </div>
 </template>
@@ -13,7 +13,7 @@ export default {
   components: {
     'monitor-view': MonitorList,
   },
-  data () { return { monitorMaxNum : 9999 } }
+  data () { return {} }
 }
 </script>
 

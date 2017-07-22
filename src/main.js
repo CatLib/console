@@ -12,6 +12,7 @@ new Vue({
   el: '#app',
   router,
   store,
+  i18n,
   VueResource,
   template: '<App/>',
   components: { App }
