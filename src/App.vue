@@ -7,6 +7,11 @@
       <br>
       <p>{{"ui.usepc"|i18n}}</p>
     </div>
+    <transition name="slide-fade">
+    <div v-if="getMsg != null && getMsg.msg != null" class="msg">
+      <p>{{ getMsg.msg|i18n }}</p>
+    </div>
+    </transition>
     <footer>
       <p>© Copyright 2017 catlib.io All Rights Reserved</p>
       <p>{{"ui.footer.description"|i18n}}</p>
@@ -21,6 +26,11 @@ export default {
   name: 'app',
   components: {
     'nav-view': Nav,
+  },
+  computed:{
+    getMsg(){
+      return this.$store.getters["env/msg"]
+    }
   },
   mounted:function(){
     this.$store.commit('env/reClientId')
@@ -49,6 +59,26 @@ footer
     padding 5px
 .use-pc
   display none
+.msg
+  width 100%
+  text-align center
+  position fixed
+  top 20px
+  p
+    margin 0 auto
+    padding 5px 10px 5px 10px
+    width 150px
+    text-align center
+    opacity 0.95
+    border-radius 3px
+    background-color $bg-color-v7
+.slide-fade-enter-active
+  transition all .3s ease
+.slide-fade-leave-active
+  transition all .3s ease
+.slide-fade-enter, .slide-fade-leave-active
+  transform translateY(-10px)
+  opacity: 0;
 
 @media screen and (max-width: 740px)
   .use-pc

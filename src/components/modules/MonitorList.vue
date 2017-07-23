@@ -6,13 +6,18 @@
     <div v-if="monitorList.length <= 0" v-html="loadingMessage" class="loading"></div>
     <div v-for="(tags,index) in monitorList" :key="index" class="monitor-tag">
         <div class="tag">
-            <p>{{tags.tag|i18n}}</p>
+            <p :title="tags.tag">{{tags.tag|i18n}}</p>
         </div>
         <ul class="clear">
             <li v-for="(monitor,monitorIndex) in tags.data" :key="monitorIndex" class="block">
                 <div class="padding clear">
-                    <p v-html="highlight($t(monitor.name),search)"></p>
-                    <p>{{monitor.value|i18n}}<span>{{monitor.unit|i18n}}</span></p>
+                    <p :title="monitor.name" v-html="highlight($t(monitor.name),search)"></p>
+                    <p v-if="/\[.+?\]\(.+?\)/i.test(monitor.value)">
+                        <a class="link" @click.stop="linkCommand(/\((.+?)\)/i.exec(monitor.value)[1])">
+                            {{ /\[(.+?)\]/i.exec(monitor.value)[1]|i18n }}
+                        </a>
+                    </p>
+                    <p v-else>{{monitor.value|i18n}}<span>{{monitor.unit|i18n}}</span></p>
                 </div>
             </li>
         </ul>
@@ -22,6 +27,7 @@
 
 <script>
 import debugMonitor from '../../api/debug.monitor'
+import webConsole from '../../api/web.console'
 export default {
   name: 'monitor_module',
   props:['monitorMaxNum'],
@@ -30,6 +36,7 @@ export default {
       monitors: [],
       timer :null,
       search : "", 
+      sendHandler : null
     }
   },
   methods:{
@@ -40,6 +47,27 @@ export default {
       },function(response){
         //faild
       });
+    },
+    isSpecialField : function(value){
+        return /\(.+?\)\[.+?\]/i.test(value)
+    },
+    linkCommand(value){
+        value = value.replace("://" , "/")
+        var vueComponent = this
+        var sendMsg = function(msg){
+            if(vueComponent.sendHandler != null){
+                clearInterval(vueComponent.sendHandler)
+            }
+            vueComponent.$store.commit("env/showMsg" , { "msg" : msg , "id" : "monitor.link.command"})
+            vueComponent.sendHandler = setTimeout(function(){
+                vueComponent.$store.commit("env/hiddenMsg" , "monitor.link.command")
+            },1000);
+        }
+        webConsole.sendCommand(value, function(){
+            sendMsg("msg.send.complete")
+        },function(){
+            sendMsg("msg.send.faild")
+        })
     },
     highlight(value , inputSearch){
       if(inputSearch == ""){
@@ -177,18 +205,27 @@ export default {
         .tag
             padding 20px
             background $bg-color-v2
+        .block:nth-child(even)
+            background-color $bg-color-v3
+        /*
         .block:nth-child(4n-1)
             background-color $bg-color-v3
         .block:nth-child(4n-4)
-            background-color $bg-color-v3
+            background-color $bg-color-v3*/
         .block
-            width 50%
+            width 100%
+            //width 50%
             float left
             .padding
                 padding 15px 20px 15px 20px
                 p
                     width 50%;
                     float left
+                    .link
+                        padding 5px
+                        background-color $bg-color-v7
+                        border-radius 3px
+                        cursor pointer
                 span
                     color $bg-color-v5
                     padding-left 5px

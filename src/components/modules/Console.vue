@@ -92,7 +92,9 @@ export default {
         return value
       }
 
-      return value.replace(new RegExp(search,"gmi"), "<b style=\"color:rgb(244,100,95)\">" + search + "</b>")
+      return value.replace(new RegExp("("+search+")","gmi"), function(search){ 
+        return "<b style=\"color:rgb(244,100,95)\">" + search + "</b>"
+      })
     },
     isShow(log){
       

@@ -8,7 +8,7 @@ var state = {
   isConnect: false,
   isCheckGuid : false,
   guid : "",
-  num : 0
+  msg : null
 }
 
 var getters = {
@@ -30,6 +30,9 @@ var getters = {
     },
     clientId(state){
         return state.clientId
+    },
+    msg(state){
+        return state.msg
     }
 }
 
@@ -50,6 +53,18 @@ var mutations = {
             Store.commit("console/clear")
             router.push({ path:'/' })
         }
+    },
+    showMsg(state,payload){
+        state.msg = payload
+    },
+    hiddenMsg(state,payload){
+        if(state.msg == null){
+            return
+        }
+        if(payload != state.msg.id){
+            return
+        }
+        state.msg = null
     },
     reClientId(state){
         state.clientId = Math.floor(Math.random() * 65535);

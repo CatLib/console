@@ -4,6 +4,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import i18n from './i18n'
+import util from './util'
 
 Vue.config.productionTip = false
 Vue.use(VueResource)
