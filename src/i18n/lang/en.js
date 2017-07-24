@@ -116,10 +116,11 @@ export default {
     "systemInfo.graphicsUVStartsAtTop" : "Graphics UV Starts At Top",
     "systemInfo.usesReversedZBuffer" : "Use Reversed ZBuffer(0 Far 1 Near)",
 
-    "code.screen.SleepTimeout.NeverSleep" : "Never Sleep",
-    "code.screen.SleepTimeout.SystemSetting" : "System Setting",
+    "code.screen.sleepTimeout.NeverSleep" : "Never Sleep",
+    "code.screen.sleepTimeout.SystemSetting" : "System Setting",
     "code.unavailable" : "UnAvailable",
     "code.unenable" : "UnEnable",
+    "code.notSupport" : "Unity Version Not Support",
 
     "command.help.clickStart" : "Start",
     "command.help.clickStop" : "Stop",

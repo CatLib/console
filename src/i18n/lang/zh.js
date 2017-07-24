@@ -116,10 +116,11 @@ export default {
     "systemInfo.graphicsUVStartsAtTop" : "是否从图像顶部开始Y轴",
     "systemInfo.usesReversedZBuffer" : "是否使用相反的深度缓冲区(0远1近)",
 
-    "code.screen.SleepTimeout.NeverSleep" : "永不休眠",
-    "code.screen.SleepTimeout.SystemSetting" : "根据系统设定",
+    "code.screen.sleepTimeout.NeverSleep" : "永不休眠",
+    "code.screen.sleepTimeout.SystemSetting" : "根据系统设定",
     "code.unavailable" : "不可用",
     "code.unenable" : "未启用",
+    "code.notSupport" : "当前版本不支持获取",
 
     "command.help.clickStart" : "启动",
     "command.help.clickStop" : "停止",
