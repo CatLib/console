@@ -11,7 +11,7 @@
         <ul class="clear">
             <li v-for="(monitor,monitorIndex) in tags.data" :key="monitorIndex" class="block">
                 <div class="padding clear">
-                    <p :title="monitor.name" v-html="highlight($t(monitor.name),search)"></p>
+                    <p :title="monitor.name.split('@')[0]" v-html="highlight($t(monitor.name),search)"></p>
                     <p v-if="/\[.+?\]\(.+?\)/i.test(monitor.value)">
                         <a class="link" @click.stop="linkCommand(/\((.+?)\)/i.exec(monitor.value)[1])">
                             {{ /\[(.+?)\]/i.exec(monitor.value)[1]|i18n }}
